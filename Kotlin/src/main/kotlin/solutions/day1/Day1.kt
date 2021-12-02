@@ -18,12 +18,6 @@ class Day1 : Solution() {
     }
 
     private fun Iterable<Int>.countIncreased(windowSize: Int): Int {
-        return this.fold(Pair(0, listOf<Int>())) { (incCount, window), i ->
-            if (window.count() < windowSize) {
-                Pair(0, window.plus(i))
-            } else {
-                Pair(if (i > window.first()) incCount + 1 else incCount, window.drop(1).plus(i))
-            }
-        }.first
+        return this.windowed(windowSize + 1).count {it.first() < it.last()}
     }
 }
