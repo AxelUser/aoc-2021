@@ -1,6 +1,6 @@
-import solutions.day1.Day1
+import solutions.day2.Day2
 
 fun main() {
-    val solution = Day1()
+    val solution = Day2()
     solution.runAll()
 }
