@@ -10,7 +10,7 @@ class Day2 : Solution() {
             .map { it.split(' ')}
             .map { Pair(it[0], it[1].toInt())}
             .groupingBy { it.first }
-            .foldTo(mutableMapOf() ,0) { acc, (_, n) -> acc + n }
+            .foldTo(mutableMapOf(), 0) { acc, (_, n) -> acc + n }
 
         return (ops["forward"]!! * (ops["down"]!! - ops["up"]!!)).toString()
     }
@@ -21,15 +21,9 @@ class Day2 : Solution() {
             .map { Pair(it[0], it[1].toInt())}
             .fold(Triple(0, 0, 0)) { (pos ,aim, depth), (op, v) ->
                 when (op) {
-                    "forward" -> {
-                        Triple(pos + v, aim, depth + aim * v)
-                    }
-                    "down" -> {
-                        Triple(pos, aim + v, depth)
-                    }
-                    "up" -> {
-                        Triple(pos, aim - v, depth)
-                    }
+                    "forward" -> Triple(pos + v, aim, depth + aim * v)
+                    "down" -> Triple(pos, aim + v, depth)
+                    "up" -> Triple(pos, aim - v, depth)
                     else -> Triple(pos, aim, depth)
                 }
             }
