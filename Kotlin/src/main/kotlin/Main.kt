@@ -1,6 +1,6 @@
-import solutions.template.Template
+import solutions.day1.Day1
 
-fun main(args: Array<String>) {
-    val solution = Template()
+fun main() {
+    val solution = Day1()
     solution.runAll()
 }
