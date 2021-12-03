@@ -22,4 +22,5 @@ that creates groping iterator instead of materializing map.
 # Day 3
 
 In part 1 you can compute second value just inverting the first one, used bitwise operators in Kotlin. For the second part
-I was thinking about prefix tree, however it wasn't needed at all and task was solved with recursive DFS.
+I was thinking about prefix tree, however it wasn't needed at all and task was solved with recursive DFS. Also, for the part 2
+I've used lambdas, syntax feels strange.

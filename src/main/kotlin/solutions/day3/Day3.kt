@@ -21,38 +21,27 @@ class Day3 : Solution() {
     }
 
     override fun part2(input: String): String {
-        val (ones, zeros) = countCommon(input.lines(), 0)
-        val oxygen = search(if (ones.count() >= zeros.count()) ones else zeros, Parameter.Oxygen, 1)
-        val co2 = search(if (zeros.count() <= ones.count()) zeros else ones, Parameter.CO2, 1)
+        val oxygenPredicate = { ones: List<String>, zeros: List<String> -> if (ones.count() >= zeros.count()) ones else zeros}
+        val co2Predicate = { ones: List<String>, zeros: List<String> -> if (zeros.count() <= ones.count()) zeros else ones}
+
+        val (ones, zeros) = countValues(input.lines(), 0)
+
+        val oxygen = search(oxygenPredicate(ones, zeros), 1, oxygenPredicate)
+        val co2 = search(co2Predicate(ones, zeros), 1, co2Predicate)
 
         return (oxygen * co2).toString()
     }
 
-    private enum class Parameter {
-        Oxygen,
-        CO2
-    }
 
-    private fun search(values: List<String>, searchFor: Parameter, pos: Int): UInt {
+    private fun search(values: List<String>, pos: Int, getNext: (ones: List<String>, zeros: List<String>) -> List<String>): UInt {
         if (values.count() <= 1)
             return values[0].toUInt(2)
 
-        val (ones, zeros) = countCommon(values, pos)
-
-        val filtered = if (searchFor == Parameter.Oxygen) {
-            if (ones.count() >= zeros.count()) ones else zeros
-        } else {
-            if (zeros.count() <= ones.count()) zeros else ones
-        }
-
-        return search(filtered, searchFor, pos + 1)
+        val (ones, zeros) = countValues(values, pos)
+        return search(getNext(ones, zeros),pos + 1, getNext)
     }
 
-    private fun countCommon(values: Iterable<String>, pos: Int): Pair<List<String>, List<String>> {
-        val ones = mutableListOf<String>()
-        val zeros = mutableListOf<String>()
-
-        values.forEach { if (it[pos] == '1') ones.add(it) else zeros.add(it) }
-        return Pair(ones, zeros)
+    private fun countValues(values: Iterable<String>, pos: Int): Pair<List<String>, List<String>> {
+        return values.groupBy { it[pos] }.let { Pair(it['1']?: emptyList(), it['0']?: emptyList()) }
     }
 }
