@@ -3,7 +3,6 @@ package solutions.day2
 import solutions.Solution
 
 class Day2 : Solution() {
-    override val inputDir: String = "day2"
 
     override fun part1(input: String): String {
         val ops = input.lines()

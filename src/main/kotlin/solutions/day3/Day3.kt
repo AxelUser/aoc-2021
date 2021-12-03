@@ -4,7 +4,6 @@ import solutions.Solution
 
 @OptIn(ExperimentalUnsignedTypes::class)
 class Day3 : Solution() {
-    override val inputDir: String = "day3"
 
 
     override fun part1(input: String): String {
@@ -12,8 +11,7 @@ class Day3 : Solution() {
         val size = lines[0].length
         val gamma = lines.map { it.toCharArray().map { c -> if (c == '1') 1 else -1 } }
             .fold(List(size){0}) { stat, cur -> cur.zip(stat) { a, b -> a + b} }
-            .fold("") {s, count -> s.plus(if (count <= 0) '0' else '1')}
-            .toUInt(2)
+            .fold(0U) { n, count -> n shl 1 or if (count <= 0) 0U else 1U }
 
         val eps = gamma.inv() and (UInt.MAX_VALUE shr (UInt.SIZE_BITS - size))
 
