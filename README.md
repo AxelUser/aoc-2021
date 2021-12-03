@@ -18,3 +18,8 @@ Actually the solution is trivial: iterate over commands and accumulate several v
 part boils down to the fact that you need to compute sums of units per command and compute final value. When I've been implementing
 in that way I've learned cool [`groupingBy`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/grouping-by.html) function,
 that creates groping iterator instead of materializing map.
+
+# Day 3
+
+In part 1 you can compute second value just inverting the first one, used bitwise operators in Kotlin. For the second part
+I was thinking about prefix tree, however it wasn't needed at all and task was solved with recursive DFS.
