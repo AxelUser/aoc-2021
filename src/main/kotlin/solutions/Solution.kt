@@ -10,6 +10,7 @@ abstract class Solution {
     fun runAll() {
         val name = this.javaClass.packageName.substringAfterLast('.')
         val solutionsDir = Path.of(File("").absolutePath, "src", "main", "kotlin", "solutions").toAbsolutePath().toString()
+        println(name.replace("\\D+".toRegex(), "Day ").plus(" results:"))
         println("Part 1:")
         println(part1(Path.of(solutionsDir, name, "part1").toFile().readText()))
         println()
