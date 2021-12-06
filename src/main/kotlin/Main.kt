@@ -1,4 +1,4 @@
-import solutions.day5.Solution
+import solutions.day6.Solution
 
 fun main() {
     Solution().runAll()
