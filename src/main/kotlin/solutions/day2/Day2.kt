@@ -1,8 +1,8 @@
 package solutions.day2
 
-import solutions.Solution
+import solutions.BaseSolution
 
-class Day2 : Solution() {
+class Day2 : BaseSolution() {
 
     override fun part1(input: String): String {
         val ops = input.lines()

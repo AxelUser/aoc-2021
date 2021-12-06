@@ -1,8 +1,8 @@
 package solutions.template
 
-import solutions.Solution
+import solutions.BaseSolution
 
-class Template : Solution() {
+class Template : BaseSolution() {
 
     override fun part1(input: String): String {
         return input

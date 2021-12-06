@@ -1,9 +1,9 @@
 package solutions.day3
 
-import solutions.Solution
+import solutions.BaseSolution
 
 @OptIn(ExperimentalUnsignedTypes::class)
-class Day3 : Solution() {
+class Day3 : BaseSolution() {
 
 
     override fun part1(input: String): String {
