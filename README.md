@@ -48,4 +48,10 @@ them by counter value, which is just an array of 9 `int64` numbers. Then on each
 shift left the array, set newborns to last element (`8`) and add the same value to the `6th` element (counter reset).
 Voilà, nice-looking and fast solution! However, no cool `Kotlin` stuff for today.
 
+# Day 7 - The Treachery of Whales
+
+Noting interesting about the solution. For first one the target position is median, but for the second it appears to be
+an average. The main problem was with this average, which for test data should be rounded from 4.9 -> 5.0, but for my input 
+we should take floor.
+
 
