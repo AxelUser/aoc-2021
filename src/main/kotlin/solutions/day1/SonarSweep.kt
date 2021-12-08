@@ -2,8 +2,7 @@ package solutions.day1
 
 import solutions.BaseSolution
 
-class Day1 : BaseSolution() {
-
+class SonarSweep : BaseSolution() {
     override fun part1(input: String): String {
         return input.lines()
             .map { it.toInt() }

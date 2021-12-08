@@ -1,5 +1,5 @@
-import solutions.day7.`The Treachery of Whales`
+import solutions.day7.TreacheryOfWhales
 
 fun main() {
-    `The Treachery of Whales`().runAll()
+    TreacheryOfWhales().runAll()
 }

@@ -3,9 +3,7 @@ package solutions.day3
 import solutions.BaseSolution
 
 @OptIn(ExperimentalUnsignedTypes::class)
-class Day3 : BaseSolution() {
-
-
+class BinaryDiagnostic : BaseSolution() {
     override fun part1(input: String): String {
         val lines = input.lines()
         val size = lines[0].length

@@ -2,8 +2,7 @@ package solutions.day2
 
 import solutions.BaseSolution
 
-class Day2 : BaseSolution() {
-
+class Dive : BaseSolution() {
     override fun part1(input: String): String {
         val ops = input.lines()
             .map { it.split(' ')}

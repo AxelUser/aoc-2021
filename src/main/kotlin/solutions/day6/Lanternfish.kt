@@ -2,7 +2,7 @@ package solutions.day6
 
 import solutions.BaseSolution
 
-class Solution: BaseSolution() {
+class Lanternfish: BaseSolution() {
     override fun part1(input: String): String {
         return solve(input, 80).toString()
     }

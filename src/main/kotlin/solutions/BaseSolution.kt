@@ -11,10 +11,11 @@ abstract class BaseSolution {
         val name = this.javaClass.packageName.substringAfterLast('.')
         val solutionsDir = Path.of(File("").absolutePath, "src", "main", "kotlin", "solutions").toAbsolutePath().toString()
         println(name.replace("\\D+".toRegex(), "Day ").plus(" results:"))
+        val input = Path.of(solutionsDir, name, "input").toFile().readText()
         println("Part 1:")
-        println(part1(Path.of(solutionsDir, name, "part1").toFile().readText()))
+        println(part1(input))
         println()
         println("Part 2:")
-        println(part2(Path.of(solutionsDir, name, "part2").toFile().readText()))
+        println(part2(input))
     }
 }
