@@ -2,12 +2,14 @@ package solutions.day8
 
 import solutions.BaseSolution
 
-class SevenSegmentSearch: BaseSolution() {
+class SevenSegmentSearch : BaseSolution() {
     override fun part1(input: String): String {
         val rgx = "\\w+".toRegex()
         val values = input.lines()
-            .map { l -> rgx.findAll(l.substringAfter('|'))
-                .map { m -> m.value.toHashSet() }}.flatMap { it }
+            .map { l ->
+                rgx.findAll(l.substringAfter('|'))
+                    .map { m -> m.value.toHashSet() }
+            }.flatMap { it }
 
         return values
             .count { s -> s.count() in arrayOf(2, 3, 4, 7) }.toString()
@@ -19,8 +21,54 @@ class SevenSegmentSearch: BaseSolution() {
         return input.lines().map { rgx.findAll(it).map { m -> m.value } }
             .map { s -> s.chunked(10).toList() }
             .map { ch -> ch[0] to ch[1] }
-            .getNumbers()
+            .getNumbersOptimized()
             .sum().toString()
+    }
+
+    private fun List<Pair<List<String>, List<String>>>.getNumbersOptimized(): Sequence<Int> {
+        return sequence {
+            for ((representations, output) in this@getNumbersOptimized) {
+                val masksByCount = representations
+                        .map { r -> r.fold(0) { acc, c -> acc or (1 shl (c - 'a')) } }
+                        .groupBy { it.countOneBits() }
+
+                val masks = IntArray(10)
+                masks[1] = masksByCount.getValue(2).single()
+                masks[4] = masksByCount.getValue(4).single()
+                masks[7] = masksByCount.getValue(3).single()
+                masks[8] = masksByCount.getValue(7).single()
+
+                // checking 2, 3 and 5
+                masksByCount.getValue(5).forEach { m ->
+                    when {
+                        (m and masks[1]).countOneBits() == 2 -> masks[3] = m
+                        else -> when {
+                            (m and masks[4]).countOneBits() == 2 -> masks[2] = m
+                            else -> masks[5] = m
+                        }
+                    }
+                }
+
+                // checking 0, 6 and 9
+                masksByCount.getValue(6).forEach { m ->
+                    when {
+                        (m and masks[1]).countOneBits() == 1 -> masks[6] = m
+                        else -> when {
+                            (m and masks[4]).countOneBits() == 3 -> masks[0] = m
+                            else -> masks[9] = m
+                        }
+                    }
+                }
+
+                val mappedDigits = masks.mapIndexed{ dig, mask -> mask to dig }.toMap()
+
+                val num = output.map { r -> r.fold(0) { acc, c -> acc or (1 shl (c - 'a')) } }
+                    .map { mappedDigits.getValue(it) }
+                    .reduce { num, d -> num * 10 + d }
+
+                yield(num)
+            }
+        }
     }
 
     /*
@@ -34,22 +82,20 @@ class SevenSegmentSearch: BaseSolution() {
     */
     private fun List<Pair<List<String>, List<String>>>.getNumbers(): Sequence<Int> {
         val normalizedSegmentsPerDigit = mapOf(
-            setOf('a', 'b', 'c', 'e', 'f', 'g')      to 0,
-            setOf('c', 'f')                          to 1,
-            setOf('a', 'c', 'd', 'e', 'g')           to 2,
-            setOf('a', 'c', 'd', 'f', 'g')           to 3,
-            setOf('b', 'd', 'c', 'f')                to 4,
-            setOf('a', 'b', 'd', 'f', 'g')           to 5,
-            setOf('a', 'b', 'd', 'e', 'f', 'g')      to 6,
-            setOf('a', 'c', 'f')                     to 7,
+            setOf('a', 'b', 'c', 'e', 'f', 'g') to 0,
+            setOf('c', 'f') to 1,
+            setOf('a', 'c', 'd', 'e', 'g') to 2,
+            setOf('a', 'c', 'd', 'f', 'g') to 3,
+            setOf('b', 'd', 'c', 'f') to 4,
+            setOf('a', 'b', 'd', 'f', 'g') to 5,
+            setOf('a', 'b', 'd', 'e', 'f', 'g') to 6,
+            setOf('a', 'c', 'f') to 7,
             setOf('a', 'b', 'c', 'd', 'e', 'f', 'g') to 8,
-            setOf('a', 'b', 'c', 'd', 'f', 'g')      to 9,
+            setOf('a', 'b', 'c', 'd', 'f', 'g') to 9,
         )
 
-        val input = this
-
         return sequence {
-            for ((unique, output) in input) {
+            for ((unique, output) in this@getNumbers) {
                 var set1 = setOf<Char>()
                 var set4 = setOf<Char>()
                 var set7 = setOf<Char>()
@@ -65,7 +111,7 @@ class SevenSegmentSearch: BaseSolution() {
                     }
 
                     for (c in display) {
-                        if(segmentsCounter.computeIfPresent(c) { _, v -> v + 1 } == null) {
+                        if (segmentsCounter.computeIfPresent(c) { _, v -> v + 1 } == null) {
                             segmentsCounter[c] = 1
                         }
                     }
@@ -84,7 +130,7 @@ class SevenSegmentSearch: BaseSolution() {
                     .map { (n, d) -> n.map { normalizedToFoundSeg.getValue(it) }.toSet() to d }
                     .toMap()
 
-                yield(output.map { s -> foundSetsPerDigit.getValue(s.toSet()) }.reduce{ n, d -> n * 10 + d })
+                yield(output.map { s -> foundSetsPerDigit.getValue(s.toSet()) }.reduce { n, d -> n * 10 + d })
             }
         }
     }

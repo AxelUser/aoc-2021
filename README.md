@@ -66,4 +66,17 @@ For the second pard we should find all digits, so solution was divided into step
 3. Use that information to find each segment, keeping in mind some sort of normalized representation of them.
 4. Combining found segments to find each digit.
 
+### Update
+Turns out that part 2 can be elegantly solved with binary masks. We can convert all signal string to normalized binary representation
+(`cdfeb` will become `0111110`). Next we group all digits by the number of activated bits using [`countOneBits`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/count-one-bits.html).
+Using this map we can easily find signals for 1, 4, 8 and 8, because they had unique numbers of segments. So we shall deal with the rest.
+
+First group is digits with 5 segments - `2`, `3` and `5`. Digits `3` and `1` has 2 segments in common, while others have 1.
+Digits `2` and `4` has 2 common segments, while `5` and `4` has 3.
+
+Second group is digits with 6 segments - `0`, `6` and `9`. Digits `6` and `1` has 1 segment in common, while others have 2.
+Digits `0` and `4` has 3 common segments, while `9` and `4` has 4.
+
+
+
 
