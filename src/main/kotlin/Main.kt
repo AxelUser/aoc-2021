@@ -1,5 +1,5 @@
-import solutions.day7.TreacheryOfWhales
+import solutions.day8.SevenSegmentSearch
 
 fun main() {
-    TreacheryOfWhales().runAll()
+    SevenSegmentSearch().runAll()
 }

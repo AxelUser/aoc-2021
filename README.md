@@ -54,4 +54,16 @@ Noting interesting about the solution. For first one the target position is medi
 an average. The main problem was with this average, which for test data should be rounded from 4.9 -> 5.0, but for my input 
 we should take floor.
 
+# Day 8 - Seven Segment Search
+
+Today was a grate day to write down lots of code for finding which 7-segments digits from corrupted input. The first part
+was solved with trivial count of how many digits were triggered and count 1, 4, 7 and 8 digits, luckily the all have unique
+number of segments.
+
+For the second pard we should find all digits, so solution was divided into steps:
+1. Finding sets of segments for 1, 4, 7 and 8, because it's an easy start.
+2. Counting how many digits use each segment.
+3. Use that information to find each segment, keeping in mind some sort of normalized representation of them.
+4. Combining found segments to find each digit.
+
 
