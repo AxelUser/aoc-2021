@@ -1,5 +1,5 @@
-import solutions.day8.SevenSegmentSearch
+import solutions.day9.SmokeBasin
 
 fun main() {
-    SevenSegmentSearch().runAll()
+    SmokeBasin().runAll()
 }

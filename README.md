@@ -77,6 +77,12 @@ Digits `2` and `4` has 2 common segments, while `5` and `4` has 3.
 Second group is digits with 6 segments - `0`, `6` and `9`. Digits `6` and `1` has 1 segment in common, while others have 2.
 Digits `0` and `4` has 3 common segments, while `9` and `4` has 4.
 
+# Day 9
+
+Today we should recall Breadth First Search! But first solve part 1 with simple 2-dimensional array iteration to find local minimums.
+For part 2 we can use BFS to find regions divided by 9's, just like an old friend Paint fills with color. Then sort by basin size in
+descending order and multiply them.
+
 
 
 
