@@ -5,7 +5,6 @@ import solutions.BaseSolution
 class SmokeBasin: BaseSolution() {
     override fun part1(input: String): String {
         val matrix = input.parseMatrix()
-
         val found = mutableListOf<Int>()
 
         val length = matrix.count()
@@ -26,10 +25,8 @@ class SmokeBasin: BaseSolution() {
         val visited = mutableSetOf<Pair<Int, Int>>()
         val basinSizes = mutableListOf<Int>()
 
-        val length = matrix.count()
-        for (i in 0 until length) {
-            val width = matrix[i].count()
-            for (j in 0 until width) {
+        for ((i) in matrix.withIndex()) {
+            for ((j) in matrix[i].withIndex()) {
                 if(visited.contains(i to j) || matrix[i][j] == 9) continue
                 basinSizes.add(bfs(i, j, matrix, visited))
             }
@@ -40,11 +37,12 @@ class SmokeBasin: BaseSolution() {
     }
 
     private fun bfs(i: Int, j: Int, matrix: Array<IntArray>, visited: MutableSet<Pair<Int, Int>>): Int {
-        val queue = mutableListOf(Pair(i, j))
+        val queue = ArrayDeque<Pair<Int, Int>>()
+        queue.add(i to j)
         var size = 0
 
         while (queue.isNotEmpty()) {
-            val cur = queue.removeAt(0)
+            val cur = queue.removeFirst()
             if (!visited.contains(cur) && matrix[cur.first][cur.second] != 9) {
                 size++
                 visited.add(cur)
