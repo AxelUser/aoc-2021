@@ -29,3 +29,7 @@ class Dive : BaseSolution() {
         return (pos * depth).toString()
     }
 }
+
+fun main() {
+    Dive().runAll()
+}

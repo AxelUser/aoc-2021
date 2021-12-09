@@ -2,7 +2,7 @@ package solutions.day5
 
 import solutions.BaseSolution
 
-class Solution: BaseSolution() {
+class HydrothermalVenture: BaseSolution() {
     override fun part1(input: String): String {
         val rgx = "\\d+".toRegex()
         return input.lines()
@@ -40,4 +40,8 @@ data class Point(val x: Int, val y: Int){
             else -> (minOf(x, other.x) .. maxOf(x, other.x))
                 .zip(maxOf(y, other.y) downTo minOf(y, other.y)).map { (a, b) -> Point(a, b) }
         }
+}
+
+fun main() {
+    HydrothermalVenture().runAll()
 }

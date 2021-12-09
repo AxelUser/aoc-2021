@@ -21,3 +21,7 @@ class TreacheryOfWhales: BaseSolution() {
         return sum.toBigDecimal().toPlainString()
     }
 }
+
+fun main() {
+    TreacheryOfWhales().runAll()
+}

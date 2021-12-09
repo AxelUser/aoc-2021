@@ -41,3 +41,7 @@ class BinaryDiagnostic : BaseSolution() {
         return values.groupBy { it[pos] }.let { Pair(it['1']?: emptyList(), it['0']?: emptyList()) }
     }
 }
+
+fun main() {
+    BinaryDiagnostic().runAll()
+}

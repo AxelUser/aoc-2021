@@ -70,3 +70,7 @@ class SmokeBasin: BaseSolution() {
         }
     }
 }
+
+fun main() {
+    SmokeBasin().runAll()
+}

@@ -30,3 +30,7 @@ class Lanternfish: BaseSolution() {
         return states.sum()
     }
 }
+
+fun main() {
+    Lanternfish().runAll()
+}

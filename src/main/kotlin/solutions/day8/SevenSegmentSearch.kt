@@ -135,3 +135,7 @@ class SevenSegmentSearch : BaseSolution() {
         }
     }
 }
+
+fun main() {
+    SevenSegmentSearch().runAll()
+}

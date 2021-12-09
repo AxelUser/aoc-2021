@@ -19,3 +19,7 @@ class SonarSweep : BaseSolution() {
         return this.windowed(windowSize + 1).count {it.first() < it.last()}
     }
 }
+
+fun main() {
+    SonarSweep().runAll()
+}

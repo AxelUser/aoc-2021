@@ -4,7 +4,7 @@ import solutions.BaseSolution
 
 const val BOARD_SIZE = 5
 
-class Solution: BaseSolution() {
+class GiantSquid: BaseSolution() {
     override fun part1(input: String): String {
         return solve(input).first().toString()
     }
@@ -84,4 +84,8 @@ class Solution: BaseSolution() {
     override fun part2(input: String): String {
         return solve(input).last().toString()
     }
+}
+
+fun main() {
+    GiantSquid().runAll()
 }
