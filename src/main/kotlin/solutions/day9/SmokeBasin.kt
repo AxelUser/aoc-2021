@@ -4,36 +4,32 @@ import solutions.BaseSolution
 
 class SmokeBasin: BaseSolution() {
     override fun part1(input: String): Any {
-        val matrix = input.parseMatrix()
-        val found = mutableListOf<Int>()
-
-        val length = matrix.count()
-        for (i in 0 until length) {
-            val width = matrix[i].count()
-            for (j in 0 until width) {
-                if (matrix.getAdjacent(i to j).map { (ix, jx) -> matrix[ix][jx] }.all { it > matrix[i][j] }) {
-                    found.add(matrix[i][j])
+        return input.parseMatrix().let { matrix ->
+            mutableListOf<Int>().apply {
+                for ((i) in matrix.withIndex()) {
+                    for ((j) in matrix[i].withIndex()) {
+                        if (matrix.getAdjacent(i to j).map { (ix, jx) -> matrix[ix][jx] }.all { it > matrix[i][j] }) {
+                            add(matrix[i][j])
+                        }
+                    }
                 }
-            }
+            }.sumOf { i -> i + 1 }
         }
-
-        return found.sumOf { i -> i + 1 }
     }
 
     override fun part2(input: String): Any {
-        val matrix = input.parseMatrix()
-        val visited = mutableSetOf<Pair<Int, Int>>()
-        val basinSizes = mutableListOf<Int>()
-
-        for ((i) in matrix.withIndex()) {
-            for ((j) in matrix[i].withIndex()) {
-                if(visited.contains(i to j) || matrix[i][j] == 9) continue
-                basinSizes.add(bfs(i, j, matrix, visited))
-            }
-        }
-        basinSizes.sortDescending()
-
-        return basinSizes.take(3).reduce{ r, c -> r * c}
+        return input.parseMatrix().let { matrix ->
+            val visited = mutableSetOf<Pair<Int, Int>>()
+            mutableListOf<Int>().apply {
+                for ((i) in matrix.withIndex()) {
+                    for ((j) in matrix[i].withIndex()) {
+                        if(visited.contains(i to j) || matrix[i][j] == 9) continue
+                        add(bfs(i, j, matrix, visited))
+                    }
+                }
+            } }
+            .apply { sortDescending() }
+            .take(3).reduce{ r, c -> r * c}
     }
 
     private fun bfs(i: Int, j: Int, matrix: Array<IntArray>, visited: MutableSet<Pair<Int, Int>>): Int {
