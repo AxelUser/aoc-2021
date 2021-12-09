@@ -3,7 +3,7 @@ package solutions.day5
 import solutions.BaseSolution
 
 class HydrothermalVenture: BaseSolution() {
-    override fun part1(input: String): String {
+    override fun part1(input: String): Any {
         val rgx = "\\d+".toRegex()
         return input.lines()
             .map { rgx.findAll(it).map { m -> m.value.toInt() }.chunked(2).map { (a, b) -> Point(a, b) }.toList() }
@@ -13,10 +13,10 @@ class HydrothermalVenture: BaseSolution() {
             .groupingBy { it }
             .eachCount()
             .filter { it.value >= 2 }
-            .count().toString()
+            .count()
     }
 
-    override fun part2(input: String): String {
+    override fun part2(input: String): Any {
         val rgx = "\\d+".toRegex()
         return input.lines()
             .map { rgx.findAll(it).map { m -> m.value.toInt() }.chunked(2).map { (a, b) -> Point(a, b) }.toList() }
@@ -25,7 +25,7 @@ class HydrothermalVenture: BaseSolution() {
             .groupingBy { it }
             .eachCount()
             .filter { it.value >= 2 }
-            .count().toString()
+            .count()
     }
 }
 

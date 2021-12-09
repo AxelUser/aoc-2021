@@ -4,8 +4,8 @@ import java.io.File
 import java.nio.file.Path
 
 abstract class BaseSolution {
-    abstract fun part1(input: String): String
-    abstract fun part2(input: String): String
+    abstract fun part1(input: String): Any
+    abstract fun part2(input: String): Any
 
     fun runAll() {
         val name = this.javaClass.packageName.substringAfterLast('.')

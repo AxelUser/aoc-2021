@@ -5,14 +5,13 @@ import kotlin.math.abs
 import kotlin.math.floor
 
 class TreacheryOfWhales: BaseSolution() {
-    override fun part1(input: String): String {
+    override fun part1(input: String): Any {
         val crabs = input.split(',').map { it.toInt() }.toList().sorted()
         val target = crabs[crabs.count() / 2]
-        val sum = crabs.sumOf { abs(target - it) }
-        return sum.toString()
+        return crabs.sumOf { abs(target - it) }
     }
 
-    override fun part2(input: String): String {
+    override fun part2(input: String): Any {
         val crabs = input.split(',').map { it.toDouble() }.toList()
         val target1 = floor(crabs.sum() / crabs.count()).toInt()
         val target2 = target1 + 1

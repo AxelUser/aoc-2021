@@ -5,8 +5,12 @@ import solutions.BaseSolution
 const val BOARD_SIZE = 5
 
 class GiantSquid: BaseSolution() {
-    override fun part1(input: String): String {
-        return solve(input).first().toString()
+    override fun part1(input: String): Any {
+        return solve(input).first()
+    }
+
+    override fun part2(input: String): Any {
+        return solve(input).last()
     }
 
     private fun List<List<BingoCell>>.sumUnmarked(): Int {
@@ -79,10 +83,6 @@ class GiantSquid: BaseSolution() {
                 }
             }
         }
-    }
-
-    override fun part2(input: String): String {
-        return solve(input).last().toString()
     }
 }
 

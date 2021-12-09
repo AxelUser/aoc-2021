@@ -4,7 +4,7 @@ import solutions.BaseSolution
 
 @OptIn(ExperimentalUnsignedTypes::class)
 class BinaryDiagnostic : BaseSolution() {
-    override fun part1(input: String): String {
+    override fun part1(input: String): Any {
         val lines = input.lines()
         val size = lines[0].length
         val gamma = lines.map { it.toCharArray().map { c -> if (c == '1') 1 else -1 } }
@@ -13,10 +13,10 @@ class BinaryDiagnostic : BaseSolution() {
 
         val eps = gamma.inv() and (UInt.MAX_VALUE shr (UInt.SIZE_BITS - size))
 
-        return (gamma * eps).toString()
+        return gamma * eps
     }
 
-    override fun part2(input: String): String {
+    override fun part2(input: String): Any {
         val oxygenPredicate = { ones: List<String>, zeros: List<String> -> if (ones.count() >= zeros.count()) ones else zeros}
         val co2Predicate = { ones: List<String>, zeros: List<String> -> if (zeros.count() <= ones.count()) zeros else ones}
 
@@ -25,7 +25,7 @@ class BinaryDiagnostic : BaseSolution() {
         val oxygen = search(oxygenPredicate(ones, zeros), 1, oxygenPredicate)
         val co2 = search(co2Predicate(ones, zeros), 1, co2Predicate)
 
-        return (oxygen * co2).toString()
+        return oxygen * co2
     }
 
 

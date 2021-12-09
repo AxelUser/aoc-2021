@@ -3,26 +3,22 @@ package solutions.day8
 import solutions.BaseSolution
 
 class SevenSegmentSearch : BaseSolution() {
-    override fun part1(input: String): String {
+    override fun part1(input: String): Any {
         val rgx = "\\w+".toRegex()
-        val values = input.lines()
+        return input.lines()
             .map { l ->
                 rgx.findAll(l.substringAfter('|'))
                     .map { m -> m.value.toHashSet() }
-            }.flatMap { it }
-
-        return values
-            .count { s -> s.count() in arrayOf(2, 3, 4, 7) }.toString()
-
+            }.flatMap { it }.count { s -> s.count() in arrayOf(2, 3, 4, 7) }
     }
 
-    override fun part2(input: String): String {
+    override fun part2(input: String): Any {
         val rgx = "\\w+".toRegex()
         return input.lines().map { rgx.findAll(it).map { m -> m.value } }
             .map { s -> s.chunked(10).toList() }
             .map { ch -> ch[0] to ch[1] }
             .getNumbersOptimized()
-            .sum().toString()
+            .sum()
     }
 
     private fun List<Pair<List<String>, List<String>>>.getNumbersOptimized(): Sequence<Int> {

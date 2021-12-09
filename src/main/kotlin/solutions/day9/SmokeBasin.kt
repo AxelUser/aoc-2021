@@ -3,7 +3,7 @@ package solutions.day9
 import solutions.BaseSolution
 
 class SmokeBasin: BaseSolution() {
-    override fun part1(input: String): String {
+    override fun part1(input: String): Any {
         val matrix = input.parseMatrix()
         val found = mutableListOf<Int>()
 
@@ -17,10 +17,10 @@ class SmokeBasin: BaseSolution() {
             }
         }
 
-        return found.sumOf { i -> i + 1 }.toString()
+        return found.sumOf { i -> i + 1 }
     }
 
-    override fun part2(input: String): String {
+    override fun part2(input: String): Any {
         val matrix = input.parseMatrix()
         val visited = mutableSetOf<Pair<Int, Int>>()
         val basinSizes = mutableListOf<Int>()
@@ -33,7 +33,7 @@ class SmokeBasin: BaseSolution() {
         }
         basinSizes.sortDescending()
 
-        return basinSizes.take(3).reduce{ r, c -> r * c}.toString()
+        return basinSizes.take(3).reduce{ r, c -> r * c}
     }
 
     private fun bfs(i: Int, j: Int, matrix: Array<IntArray>, visited: MutableSet<Pair<Int, Int>>): Int {
