@@ -23,8 +23,8 @@ abstract class BaseSolution {
 
     @OptIn(ExperimentalTime::class)
     fun run(name: String, func: () -> Any) {
-        val elapsed = measureTimedValue { func() }
         println("$name:")
+        val elapsed = measureTimedValue { func() }
         println("\tResult: ${elapsed.value}")
         println("\tTime: ${elapsed.duration.inMilliseconds.roundToLong()} ms")
     }
