@@ -2,6 +2,10 @@ package solutions
 
 import java.io.File
 import java.nio.file.Path
+import kotlin.math.roundToLong
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
+import kotlin.time.measureTimedValue
 
 abstract class BaseSolution {
     abstract fun part1(input: String): Any
@@ -12,10 +16,16 @@ abstract class BaseSolution {
         val solutionsDir = Path.of(File("").absolutePath, "src", "main", "kotlin", "solutions").toAbsolutePath().toString()
         println(name.replace("\\D+".toRegex(), "Day ").plus(" results:"))
         val input = Path.of(solutionsDir, name, "input").toFile().readText()
-        println("Part 1:")
-        println(part1(input))
+        run("Part 1") { part1(input) }
         println()
-        println("Part 2:")
-        println(part2(input))
+        run("Part 2") { part2(input) }
+    }
+
+    @OptIn(ExperimentalTime::class)
+    fun run(name: String, func: () -> Any) {
+        val elapsed = measureTimedValue { func() }
+        println("$name:")
+        println("\tResult: ${elapsed.value}")
+        println("\tTime: ${elapsed.duration.inMilliseconds.roundToLong()} ms")
     }
 }
