@@ -1,5 +1,7 @@
 package solutions.day9
 
+import common.getAdjacent4
+import common.parseMatrix
 import solutions.BaseSolution
 
 class SmokeBasin: BaseSolution() {
@@ -8,7 +10,7 @@ class SmokeBasin: BaseSolution() {
             mutableListOf<Int>().apply {
                 for ((i) in matrix.withIndex()) {
                     for ((j) in matrix[i].withIndex()) {
-                        if (matrix.getAdjacent(i to j).map { (ix, jx) -> matrix[ix][jx] }.all { it > matrix[i][j] }) {
+                        if (matrix.getAdjacent4(i to j).map { (ix, jx) -> matrix[ix][jx] }.all { it > matrix[i][j] }) {
                             add(matrix[i][j])
                         }
                     }
@@ -42,28 +44,11 @@ class SmokeBasin: BaseSolution() {
             if (!visited.contains(cur) && matrix[cur.first][cur.second] != 9) {
                 size++
                 visited.add(cur)
-                queue.addAll(matrix.getAdjacent(cur))
+                queue.addAll(matrix.getAdjacent4(cur))
             }
         }
 
         return size
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    private fun String.parseMatrix(): Array<IntArray> {
-        return this.lines().map { l -> l.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
-    }
-
-    private fun Array<IntArray>.getAdjacent(point: Pair<Int, Int>): Sequence<Pair<Int, Int>> {
-        val (i, j) = point
-        val length = this@getAdjacent.count()
-        val width = this@getAdjacent[i].count()
-        return sequence {
-            if (i > 0) yield(Pair(i - 1, j)) // top
-            if (i < (length - 1)) yield(Pair(i + 1, j)) // bottom
-            if (j > 0) yield(Pair(i, j - 1)) // left
-            if (j < (width - 1)) yield(Pair(i, j + 1)) // right
-        }
     }
 }
 

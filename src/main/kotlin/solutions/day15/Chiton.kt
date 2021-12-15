@@ -1,5 +1,7 @@
 package solutions.day15
 
+import common.getAdjacent4
+import common.parseMatrix
 import solutions.BaseSolution
 import java.util.*
 
@@ -43,18 +45,6 @@ class Chiton: BaseSolution() {
         error("not found")
     }
 
-    private fun Array<IntArray>.getAdjacent4(point: Pair<Int, Int>, scale: Int = 1): Sequence<Pair<Int, Int>> {
-        val (i, j) = point
-        val length = this@getAdjacent4.count() * scale
-        val width = this@getAdjacent4[0].count() * scale
-        return sequence {
-            if (i > 0) yield(Pair(i - 1, j)) // top
-            if (i < (length - 1)) yield(Pair(i + 1, j)) // bottom
-            if (j > 0) yield(Pair(i, j - 1)) // left
-            if (j < (width - 1)) yield(Pair(i, j + 1)) // right
-        }
-    }
-
     private fun Array<IntArray>.getRisk(point: Pair<Int, Int>): Int {
         val (y, x) = point
         val length = this@getRisk.count()
@@ -66,11 +56,6 @@ class Chiton: BaseSolution() {
 
     private fun Array<IntArray>.bottomRight(scale: Int = 1): Pair<Int, Int> {
         return Pair(count() * scale - 1, first().count() * scale - 1)
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    private fun String.parseMatrix(): Array<IntArray> {
-        return this.lines().map { l -> l.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
     }
 }
 

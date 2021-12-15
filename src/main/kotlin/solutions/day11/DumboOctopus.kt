@@ -1,5 +1,7 @@
 package solutions.day11
 
+import common.getAdjacent8
+import common.parseMatrix
 import solutions.BaseSolution
 
 class DumboOctopus: BaseSolution() {
@@ -33,7 +35,7 @@ class DumboOctopus: BaseSolution() {
     private fun Array<IntArray>.propagateFlash(i: Int, j: Int, flashed: MutableSet<Pair<Int, Int>>) {
         val queue = ArrayDeque<Pair<Int, Int>>()
         // adding adjacent of current flashed octopus
-        queue.addAll(this.getAdjacent8(i to j))
+        queue.addAll(getAdjacent8(i to j))
 
         while (queue.isNotEmpty()) {
             val cur = queue.removeFirst()
@@ -41,7 +43,7 @@ class DumboOctopus: BaseSolution() {
                 this[cur.first][cur.second]++
                 if (this[cur.first][cur.second] > 9) {
                     flashed.add(cur)
-                    queue.addAll(this.getAdjacent8(cur))
+                    queue.addAll(getAdjacent8(cur))
                 }
             }
         }
@@ -62,32 +64,6 @@ class DumboOctopus: BaseSolution() {
 
     private fun Array<IntArray>.resetFlashed(flashed: Set<Pair<Int, Int>>) {
         flashed.forEach { (i, j) -> this[i][j] = 0 }
-    }
-
-    @OptIn(ExperimentalStdlibApi::class)
-    private fun String.parseMatrix(): Array<IntArray> {
-        return this.lines().map { l -> l.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
-    }
-
-    private fun Array<IntArray>.getAdjacent8(point: Pair<Int, Int>): Sequence<Pair<Int, Int>> {
-        val (i, j) = point
-        val length = this@getAdjacent8.count()
-        val width = this@getAdjacent8[i].count()
-        return sequence {
-            if (i > 0) {
-                yield(Pair(i - 1, j)) // top
-                if (j > 0) yield(Pair(i - 1, j - 1)) // top-left
-                if (j < (width - 1)) yield(Pair(i - 1, j + 1)) // top-right
-            }
-            if (i < (length - 1)) {
-                yield(Pair(i + 1, j)) // bottom
-                if (j > 0) yield(Pair(i + 1, j - 1)) // bottom-left
-                if (j < (width - 1)) yield(Pair(i + 1, j + 1)) // bottom-right
-            }
-
-            if (j > 0) yield(Pair(i, j - 1)) // left
-            if (j < (width - 1)) yield(Pair(i, j + 1)) // right
-        }
     }
 }
 
