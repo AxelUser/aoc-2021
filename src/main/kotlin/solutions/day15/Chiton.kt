@@ -23,22 +23,24 @@ class Chiton: BaseSolution() {
     private data class State(val point: Pair<Int, Int>, val risk: Int)
 
     private fun dijkstra(start: Pair<Int, Int>, destination: Pair<Int, Int>, getAdjacent: (Pair<Int, Int>) -> Sequence<State>): Int {
-        val risks = mutableMapOf(start to 0)
         val pq = PriorityQueue<State>(compareBy { it.risk })
-        pq.add(State(start, 0))
+        val visited = mutableSetOf<Pair<Int, Int>>()
+        pq.offer(State(start, 0))
 
         while (pq.isNotEmpty()) {
-            val closest = pq.remove()
-            for (adj in getAdjacent(closest.point)) {
-                val newRisk = adj.risk + closest.risk
-                if (risks.getOrDefault(adj.point, Int.MAX_VALUE) > newRisk) {
-                    risks[adj.point] = newRisk
-                    pq.add(State(adj.point, newRisk))
+            val safest = pq.remove()
+            if (safest.point == destination) {
+                return safest.risk
+            }
+            for (adj in getAdjacent(safest.point)) {
+                if (!visited.contains(adj.point)) {
+                    visited.add(adj.point)
+                    pq.offer(State(adj.point, adj.risk + safest.risk))
                 }
             }
         }
 
-        return risks.getValue(destination)
+        error("not found")
     }
 
     private fun Array<IntArray>.getAdjacent4(point: Pair<Int, Int>, scale: Int = 1): Sequence<Pair<Int, Int>> {
