@@ -33,7 +33,6 @@ fun Array<IntArray>.getAdjacent8(point: Pair<Int, Int>): Sequence<Pair<Int, Int>
     }
 }
 
-@OptIn(ExperimentalStdlibApi::class)
 fun String.parseMatrix(): Array<IntArray> {
     return this.lines().map { l -> l.map { c -> c.digitToInt() }.toIntArray() }.toTypedArray()
 }
