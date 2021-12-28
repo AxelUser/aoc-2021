@@ -2,9 +2,7 @@ package solutions
 
 import java.io.File
 import java.nio.file.Path
-import kotlin.math.roundToLong
 import kotlin.time.ExperimentalTime
-import kotlin.time.measureTime
 import kotlin.time.measureTimedValue
 
 abstract class BaseSolution {
@@ -26,6 +24,6 @@ abstract class BaseSolution {
         println("$name:")
         val elapsed = measureTimedValue { func() }
         println("\tResult: ${elapsed.value}")
-        println("\tTime: ${elapsed.duration.inMilliseconds.roundToLong()} ms")
+        println("\tTime: ${elapsed.duration}")
     }
 }
